@@ -1,0 +1,45 @@
+name: Release
+
+on:
+    push:
+        branches:
+            - main
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 24
+                  cache: 'npm'
+
+            - run: npm ci
+
+            - run: npm run build
+
+    release:
+        needs: build
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: actions/setup-node@v4
+              with:
+                  node-version: 24
+                  cache: 'npm'
+
+            - run: npm ci
+
+            - run: npm run build
+
+            - uses: cycjimmy/semantic-release-action@v4
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+              with:
+                  extra_plugins: |
+                      @semantic-release/changelog
+                      @semantic-release/git

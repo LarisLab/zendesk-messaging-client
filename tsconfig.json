@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "declaration": true,
+        "target": "ES6",
+        "module": "esnext",
+        "moduleResolution": "node10",
+        "strict": true,
+        "strictNullChecks": true,
+        "noImplicitAny": true,
+        "outDir": "./dist",
+        "lib": ["DOM", "DOM.Iterable", "ESNext"]
+    },
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules"]
+}
